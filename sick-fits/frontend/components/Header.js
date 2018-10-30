@@ -1,6 +1,20 @@
-import Nav from "./Nav";
 import Link from "next/link";
 import styled from "styled-components";
+import Nav from "./Nav";
+import Router from "next/router";
+import NProgress from "nprogress";
+
+Router.onRouteChangeStart = () => {
+  NProgress.start();
+};
+
+Router.onRouteChangeComplete = () => {
+  NProgress.done();
+};
+
+Router.onRouteChangeErrorRouter = () => {
+  NProgress.done();
+};
 
 const Logo = styled.h1`
   font-size: 4rem;
@@ -9,7 +23,7 @@ const Logo = styled.h1`
   z-index: 2;
   transform: skew(-7deg);
   a {
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     background: ${props => props.theme.red};
     color: white;
     text-transform: uppercase;
