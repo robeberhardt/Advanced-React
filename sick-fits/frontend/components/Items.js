@@ -23,7 +23,7 @@ const ALL_ITEMS_QUERY = gql`
     $skip: Int = 0,
     $first: Int = ${perPage}
   ) {
-    items(first: $first, skip: $skip, orderBy: createdAt_DESC) {
+    items(first: $first, skip: $skip, orderBy: createdAt_ASC) {
       id
       title
       price
