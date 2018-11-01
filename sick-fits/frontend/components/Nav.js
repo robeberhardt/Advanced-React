@@ -5,7 +5,7 @@ const Nav = () => (
   <NavStyles>
     <User>
       {({ data: { me } }) => {
-        if (me) return <p>{me.name}</p>;
+        return me ? <p>{me.name}</p> : <p>blarg</p>
       }}
     </User>
     <Link href="items">
