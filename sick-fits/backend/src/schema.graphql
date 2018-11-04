@@ -37,6 +37,7 @@ type Query {
   itemsConnection(where: ItemWhereInput): ItemConnection!
   me: User
   users: [User]!
+  cloudImages: [CloudinaryImage]!
 }
 
 type User {
@@ -44,4 +45,12 @@ type User {
   name: String!
   email: String!
   permissions: [Permission!]!
+}
+
+type CloudinaryImage {
+  public_id: String!
+  format: String!
+  url: String!
+  width: Int
+  height: Int
 }

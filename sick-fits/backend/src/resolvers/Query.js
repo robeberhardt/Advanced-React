@@ -1,4 +1,5 @@
 const { forwardTo } = require("prisma-binding");
+const axios = require("axios");
 const { hasPermission } = require("../utils");
 
 const Query = {
@@ -32,6 +33,19 @@ const Query = {
       },
       info
     );
+  },
+
+  async cloudImages(parent, args, ctx, info) {
+    const response = await axios.get(
+      `${process.env.CLOUDINARY_BASE_URL}/resources/image`,
+      {
+        auth: {
+          username: process.env.CLOUDINARY_KEY,
+          password: process.env.CLOUDINARY_SECRET
+        }
+      }
+    );
+    return response.data.resources;
   }
 };
 
