@@ -1,4 +1,4 @@
-import CloudImagePicker from "../components/CloudImagePicker";
+import CloudImagePicker from "../components/CloudImagePicker/CIPQuery";
 
 const CloudinaryPage = props => (
   <div>
