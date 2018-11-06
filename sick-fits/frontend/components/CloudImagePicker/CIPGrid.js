@@ -5,18 +5,26 @@ class CIPGrid extends Component {
   state = {
     multiple: false,
     images: [],
-    selection: null
+    selection: []
   };
   componentDidMount() {
-    console.log("grid - did mount - props ", this.props);
     let images = this.props.data.cloudImages.map(image =>
       Object.assign(image, { selected: false })
     );
     this.setState({ multiple: this.props.multiple || false, images: images });
   }
   componentDidUpdate() {
-    console.log("selection: ", this.state.selection);
+    this.props.onUpdate(this.state.selection);
   }
+  clearSelection = () => {
+    console.log(" > grid: clearing selection...");
+    let updatedSelection = [];
+    let updatedImages = this.state.images;
+    updatedImages.forEach(image => {
+      image.selected = false;
+    });
+    this.setState({ selection: updatedSelection, images: updatedImages });
+  };
   handleClick = id => {
     let updatedSelection = [];
     let updatedImages = this.state.images;

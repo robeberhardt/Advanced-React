@@ -15,8 +15,12 @@ const CLOUD_IMAGE_QUERY = gql`
 `;
 
 class CloudImagePicker extends Component {
-  choose = () => {
-    console.log("choosed!");
+  handleChoose = () => {
+    this.props.onChoose();
+  };
+  clearSelection = () => {
+    console.log("root: clearing selection...");
+    this.cloudImageGrid.clearSelection();
   };
   render() {
     return (
@@ -26,8 +30,12 @@ class CloudImagePicker extends Component {
           return (
             <>
               <Error error={error} />
-              <CIPGrid data={data} />
-              <SickButton onClick={this.choose}>Choose</SickButton>
+              <CIPGrid
+                {...this.props}
+                data={data}
+                ref={ref => (this.cloudImageGrid = ref)}
+              />
+              <SickButton onClick={this.handleChoose}>Choose</SickButton>
             </>
           );
         }}

@@ -3,9 +3,12 @@ import SkyLight from "react-skylight";
 import CloudImagePicker from "./CloudImagePicker/CIPQuery";
 
 class SkyLightTest extends Component {
-  componentDidMount() {
-    console.log(process.browser);
-  }
+  state = {
+    selection: []
+  };
+  updateSelection = newSelection => {
+    this.setState({ selection: newSelection });
+  };
   render() {
     // if (!process.browser) return <></>;
     return (
@@ -17,9 +20,21 @@ class SkyLightTest extends Component {
         {process.browser ? (
           <SkyLight
             ref={ref => (this.simpleDialog = ref)}
-            title="Hi, I'm a simple modal"
+            title="Choose an image:"
+            beforeOpen={() => {
+              this.cloudImagePicker.clearSelection();
+            }}
           >
-            <CloudImagePicker />
+            <CloudImagePicker
+              onUpdate={selection => {
+                console.log("selection: ", selection);
+              }}
+              onChoose={() => {
+                console.log("you choosed! good jerb");
+                this.simpleDialog.hide();
+              }}
+              ref={ref => (this.cloudImagePicker = ref)}
+            />
           </SkyLight>
         ) : (
           <></>
