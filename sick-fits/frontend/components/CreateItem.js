@@ -8,7 +8,6 @@ import Error from "./ErrorMessage";
 import SkyLight from "react-skylight";
 import SickButton from "./styles/SickButton";
 import CloudImagePicker from "../components/CloudImagePicker/CIPQuery";
-import { auto } from "async";
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -35,26 +34,7 @@ const myBigGreenDialog = {
   color: "black",
   width: "80%",
   margin: "0 auto"
-  // height: "800px",
-  // marginTop: "-300px",
-  // marginLeft: "-35%"
 };
-
-// const SkyLightModal = () => {
-//   if (process.browser) {
-//     return (
-//       <SkyLight
-//         hideOnOverlayClicked
-//         ref={ref => (this.simpleDialog = ref)}
-//         title="Hi, I'm a simple modal"
-//       >
-//         Hello, I dont have any callback.
-//       </SkyLight>
-//     );
-//   } else {
-//     return null;
-//   }
-// };
 
 class CreateItem extends Component {
   state = {
@@ -194,7 +174,16 @@ class CreateItem extends Component {
                 ref={ref => (this.simpleDialog = ref)}
                 title="Choose wisely!"
               >
-                <CloudImagePicker />
+                <CloudImagePicker
+                  onUpdate={selection => {
+                    console.log("selection: ", selection);
+                  }}
+                  onChoose={() => {
+                    console.log("you choosed! good jerb");
+                    this.simpleDialog.hide();
+                  }}
+                  ref={ref => (this.cloudImagePicker = ref)}
+                />
               </SkyLight>
             ) : null}
           </>
