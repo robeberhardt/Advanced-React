@@ -2,6 +2,20 @@ import App, { Container } from "next/app";
 import Page from "../components/Page";
 import { ApolloProvider } from "react-apollo";
 import withData from "../lib/withData";
+import { observable, decorate, action } from "mobx";
+import { Provider } from "mobx-react";
+
+// set up the store
+class State {
+  public_id = [];
+  setSelection = val => {
+    console.log("setting selection in store");
+    this.public_id = val;
+    console.log("public_id: ", this.public_id);
+  };
+}
+decorate(State, { public_id: observable, setSelection: action });
+const appState = new State();
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -19,11 +33,13 @@ class MyApp extends App {
 
     return (
       <Container>
-        <ApolloProvider client={apollo}>
-          <Page>
-            <Component {...pageProps} />
-          </Page>
-        </ApolloProvider>
+        <Provider store={appState}>
+          <ApolloProvider client={apollo}>
+            <Page>
+              <Component {...pageProps} />
+            </Page>
+          </ApolloProvider>
+        </Provider>
       </Container>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CloudImage from "./CloudImage";
+import { inject, observer } from "mobx-react";
 
 class CIPGrid extends Component {
   state = {
@@ -17,7 +18,6 @@ class CIPGrid extends Component {
     this.props.onUpdate(this.state.selection);
   }
   clearSelection = () => {
-    console.log(" > grid: clearing selection...");
     let updatedSelection = [];
     let updatedImages = this.state.images;
     updatedImages.forEach(image => {
